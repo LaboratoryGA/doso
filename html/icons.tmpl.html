@@ -1,0 +1,10 @@
+<!--- script type="text/x-jquery-tmpl" id="item_template" name="id" -->
+<div class="documentItem">
+	<div class="documentDetails">
+		<a href="/intranet/documents/{{= url }}" class="documentLink documentTitle cla-icon" data-type="{{= type}}" data-doc-id="{{ if (obj.id) { print(id) } else { print(doc_id) } }}">
+			<span class="cla-icon-{{= icon}}"></span>
+			{{= title}}
+		</a>
+	</div>
+</div>
+<!--- /script -->
