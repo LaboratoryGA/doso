@@ -45,41 +45,45 @@
 		}
 	}
 	
+	// make a localized copy of the args now, so that during asynchronous
+	// I/O, we don't wipe out our own arguments.
+	var my_args = $.extend({}, doso_args);
+	
 	// make sure we don't have a pre-existing DOSO instance with the same name
-	if ($("#" + doso_args.id).size()) {
-		document.write("Duplicate 'doso_args.id': " + doso_args.id);
+	if ($("#" + my_args.id).size()) {
+		document.write("Duplicate 'my_args.id': " + my_args.id);
 		return;
 	}
 
 	// generate a placeholder in-line
-	document.write("<div id=\"" + doso_args.id + "-container\"></div>");
+	document.write("<div id=\"" + my_args.id + "-container\"></div>");
 
 	jQuery(function($) {
 		var stagesCompleted = 0;
 		
 		// get list template
 		$.post("/intranet/doso/get_part.php", {
-				id: doso_args.id, 
-				template: doso_args.list_template}, function(data) {
-			$("#" + doso_args.id + "-container").append(data);
+				id: my_args.id, 
+				template: my_args.list_template}, function(data) {
+			$("#" + my_args.id + "-container").append(data);
 			
 			++stagesCompleted;
 		});
 		
 		$.post("/intranet/doso/get_part.php", {
-				id: doso_args.id + "-item", 
-				template: doso_args.item_template}, function(data) {
-			window[doso_args.id + "_item_template"] = _.template(data);
+				id: my_args.id + "-item", 
+				template: my_args.item_template}, function(data) {
+			window[my_args.id + "_item_template"] = _.template(data);
 			
 			++stagesCompleted;
 		});
 		
 		// wait until all the stages are complete
 		var thread = setInterval(function() {
-			if (stagesCompleted == 2 && window[doso_args.id + "_item_template"]) {
+			if (stagesCompleted == 2 && window[my_args.id + "_item_template"]) {
 				clearInterval(thread);
-				window[doso_args.id + "_stack"] = [];
-				populateDOSO(doso_args.id, doso_args.folder_id, doso_args.folder_id);
+				window[my_args.id + "_stack"] = [];
+				populateDOSO(my_args.id, my_args.folder_id, my_args.folder_id);
 			}
 		}, 500);
 	});

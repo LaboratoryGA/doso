@@ -12,5 +12,5 @@ As a pure JavaScript mechanism, use the following smart-object code to embed
 		item_template: "doso/icons.tmpl.html"
 	};
 </script>
-<script type="text/javascript" src="/intranet/doso/show.js"></script>
+<script type="text/javascript" src="/intranet/doso/js/show.js"></script>
 ```
