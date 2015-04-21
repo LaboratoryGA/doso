@@ -20,6 +20,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     Author     : Nathan Crause <nathan at crause.name>
 */
 
+.documentList {
+	float: none;
+}
+
 .documentList:before, .documentList:after {
 	display: table;
 	content: " ";
